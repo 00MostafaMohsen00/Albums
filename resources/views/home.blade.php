@@ -58,8 +58,9 @@
                                                <h1> Album Has photos:</h1><br>
                                                <form  id="move_form" method="POST" action="{{ route("move.delete.album",$album->id) }}">
                                                 @csrf
+                                                @if(App\Models\Album::where('id',"!=",$album->id)->count()>0)
                                                 <select class="custom-select mr-sm-2" name="album_id">
-                                                    <option  disable selectedd>choose Album</option>
+                                                    <option value="0"  disable selectedd>choose Album</option>
 
                                                     @foreach($albums as $al)
                                                     @if($al->id!=$album->id)
@@ -72,6 +73,7 @@
                                             <br>
                                             <button type="submit" class="btn btn-primary">Move & Delete</button>
                                             </form>
+                                            @endif
 
                                                 <button id="{{ $album->id }}" class="delete_button btn btn-danger"> <a  href ="{{ route('album.delete',$album->id) }}" class="btn btn-danger">Delete Any way</a></button>
                                                 @else
